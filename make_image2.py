@@ -13,7 +13,7 @@ import numpy as np
 
 import reshape_common as rc
 
-OUT = 'Image2-guarantee-vs-thr.png'
+OUT = 'images/Image2-guarantee-vs-thr.png'
 
 
 def render(theme, report=False):

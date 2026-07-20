@@ -18,7 +18,7 @@ import numpy as np
 
 import reshape_common as rc
 
-OUT = 'Image3-guarantees-cmp.png'
+OUT = 'images/Image3-guarantees-cmp.png'
 
 
 def render(theme, report=False):

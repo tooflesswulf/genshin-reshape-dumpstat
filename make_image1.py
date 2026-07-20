@@ -15,7 +15,7 @@ from matplotlib.patches import Circle, FancyBboxPatch, Wedge
 
 import reshape_common as rc
 
-OUT = 'Image1-reshape-probs.png'
+OUT = 'images/Image1-reshape-probs.png'
 
 CARD_W, CARD_H = 3.3, 1.
 PIP_R, PIP_GAP = 0.19, 0.62
