@@ -7,8 +7,14 @@
     --dot: #d8dce3;
     --ink: #2a3140;
     --ink-2: #343c4e;
-    --card-text: #f2f4f8;
-    --card-muted: #aab3c4;
+    --card: #ffffff;
+    --card-2: #eef1f6;
+    --card-line: #dce0e7;
+    --card-text: #2b3242;
+    --card-muted: #5c6577;
+    --card-accent: #c28f2c;
+    --card-shadow: 0 10px 30px rgba(30, 36, 50, .08);
+    --star-off: #b9c0cd;
     --text: #2b3242;
     --muted: #5c6577;
     --line: #dce0e7;
@@ -40,6 +46,14 @@
       --ink: #272e3c;
       --ink-2: #313949;
       --link: var(--gold);
+      --card: var(--ink);
+      --card-2: var(--ink-2);
+      --card-line: var(--ink-2);
+      --card-text: #f2f4f8;
+      --card-muted: #aab3c4;
+      --card-accent: var(--gold);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --star-off: #55607a;
       --img-light: none;
       --img-dark: block;
     }
@@ -48,12 +62,18 @@
     --ground: #f5f6f8; --dot: #d8dce3; --text: #2b3242; --muted: #5c6577;
     --line: #dce0e7; --boost-bg: #e3f0e4; --kill-bg: #f6e4e0;
     --ink: #2a3140; --ink-2: #343c4e; --link: #8a6420;
+    --card: #ffffff; --card-2: #eef1f6; --card-line: #dce0e7;
+    --card-text: #2b3242; --card-muted: #5c6577; --card-accent: #c28f2c;
+    --card-shadow: 0 10px 30px rgba(30, 36, 50, .08); --star-off: #b9c0cd;
     --img-light: block; --img-dark: none;
   }
   :root[data-theme="dark"] {
     --ground: #1e222b; --dot: #2e3440; --text: #e7eaf1; --muted: #9aa3b5;
     --line: #333a48; --boost-bg: #24382a; --kill-bg: #3d2721;
     --ink: #272e3c; --ink-2: #313949; --link: var(--gold);
+    --card: var(--ink); --card-2: var(--ink-2); --card-line: var(--ink-2);
+    --card-text: #f2f4f8; --card-muted: #aab3c4; --card-accent: var(--gold);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, .35); --star-off: #55607a;
     --img-light: none; --img-dark: block;
   }
 
@@ -77,23 +97,24 @@
   h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
   p { margin: 0; }
   a, a:visited { color: var(--link); text-decoration-color: currentColor; text-underline-offset: 2px; }
-  .hero a, .hero a:visited, .v-card a, .v-card a:visited { color: var(--gold); }
+  .hero a, .hero a:visited, .v-card a, .v-card a:visited { color: var(--link); }
   .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 
   /* ---- hero: styled like the in-game artifact panel ---- */
   .hero {
-    background: var(--ink);
+    background: var(--card);
     color: var(--card-text);
+    border: 1px solid var(--card-line);
     border-radius: 18px;
     padding: 34px 34px 30px;
-    box-shadow: 0 10px 30px rgba(30, 36, 50, .25);
+    box-shadow: var(--card-shadow);
   }
   .eyebrow {
     font-family: var(--display);
     font-size: .78rem;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--card-accent);
     margin-bottom: 14px;
   }
   .hero h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); line-height: 1.15; }
@@ -105,7 +126,7 @@
     gap: 8px;
   }
   .stat-row {
-    background: var(--ink-2);
+    background: var(--card-2);
     border-radius: 10px;
     padding: 10px 14px;
     display: grid;
@@ -125,7 +146,7 @@
     display: grid; place-items: center;
     font-size: .8rem;
   }
-  .stat-row .star.off { background: transparent; border: 1.5px dashed #55607a; color: transparent; }
+  .stat-row .star.off { background: transparent; border: 1.5px dashed var(--star-off); color: transparent; }
   .stat-row .tag {
     grid-column: 2;
     font-size: .68rem;
@@ -133,7 +154,7 @@
     text-transform: uppercase;
     color: var(--card-muted);
   }
-  .stat-row.picked .tag { color: var(--gold); }
+  .stat-row.picked .tag { color: var(--card-accent); }
 
   /* ---- sections ---- */
   .section { display: flex; flex-direction: column; gap: 16px; }
@@ -236,8 +257,8 @@
     flex-direction: column;
     gap: 10px;
   }
-  .v-card.floor { background: var(--ink); color: var(--card-text); }
-  .v-card.jackpot { background: var(--ink); color: var(--card-text); border: 2px solid var(--gold); }
+  .v-card { background: var(--card); color: var(--card-text); border: 1px solid var(--card-line); }
+  .v-card.jackpot { border: 2px solid var(--gold); }
   .v-card .when {
     font-family: var(--display);
     font-size: .74rem;
@@ -245,11 +266,11 @@
     text-transform: uppercase;
     color: var(--card-muted);
   }
-  .v-card.jackpot .when { color: var(--gold); }
+  .v-card.jackpot .when { color: var(--card-accent); }
   .v-card h3 { font-family: var(--display); margin: 0; font-size: 1.2rem; }
   .v-card p { color: var(--card-muted); font-size: .93rem; }
   .v-card .pick { font-family: var(--display); font-size: 1rem; color: var(--card-text); }
-  .v-card .pick .star { color: var(--gold); }
+  .v-card .pick .star { color: var(--card-accent); }
 
   /* ---- footer ---- */
   .fine { color: var(--muted); font-size: .85rem; max-width: 46em; border-top: 1px solid var(--line); padding-top: 18px; }

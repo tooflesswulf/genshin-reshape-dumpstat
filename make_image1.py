@@ -42,7 +42,7 @@ def draw_card(ax, x, y, picked, junk, prob, dead=False, note=None,
         ax.add_patch(FancyBboxPatch(
             (x - CARD_W / 2, y - CARD_H / 2), CARD_W, CARD_H,
             boxstyle='round,pad=0.12,rounding_size=0.22',
-            facecolor=rc.CARD, edgecolor='none', zorder=4))
+            facecolor=rc.CARD, edgecolor=rc.CARD_EDGE, zorder=4))
     pip_alpha = 0.45 if dead else 1.0
     x0 = x - PIP_GAP * (4 - 1) / 2
     for i in range(4):

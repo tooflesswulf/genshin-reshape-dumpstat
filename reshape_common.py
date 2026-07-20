@@ -125,13 +125,13 @@ _THEMES = {
         TEXT='#2a3140', MUTED='#5c6577', LINE='#dce0e7',
         PAGE_BG='#f5f6f8', GOLD='#e9b54d', GOLD_DEEP='#c28f2c',
         BLUE='#4a6fb5', GRAY='#9aa3b2', GREEN='#3e8e4b', RED='#b8402f',
-        CARD='#2a3140', CARD_TEXT='#f2f4f8', PIP_EMPTY='#7d8798',
+        CARD='#ffffff', CARD_EDGE='#dce0e7', CARD_TEXT='#000000', PIP_EMPTY='#7d8798',
     ),
     'dark': dict(
         TEXT='#e7eaf1', MUTED='#9aa3b5', LINE='#333a48',
         PAGE_BG='#1e222b', GOLD='#e9b54d', GOLD_DEEP='#d9a53e',
         BLUE='#7095d6', GRAY='#7f8a9c', GREEN='#5fae6d', RED='#d0604d',
-        CARD='#313949', CARD_TEXT='#f2f4f8', PIP_EMPTY='#55607a',
+        CARD='#313949', CARD_EDGE='none', CARD_TEXT='#f2f4f8', PIP_EMPTY='#55607a',
     ),
 }
 THEMES = list(_THEMES)
