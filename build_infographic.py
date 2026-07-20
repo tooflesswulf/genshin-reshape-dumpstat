@@ -32,6 +32,10 @@ def main():
     out.write_text(html)
     print(f'wrote {out.name} ({out.stat().st_size:,} bytes)')
 
+    # For github pages
+    out2 = HERE / 'index.html'
+    out2.write_text(html)
+
 
 if __name__ == '__main__':
     main()
