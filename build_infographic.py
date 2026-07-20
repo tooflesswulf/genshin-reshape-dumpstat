@@ -13,13 +13,13 @@ import pathlib
 
 HERE = pathlib.Path(__file__).parent
 IMAGES = {
-    '{{IMG1}}': 'Image1-reshape-probs.png',
-    '{{IMG1D}}': 'Image1-reshape-probs-dark.png',
-    '{{IMG2}}': 'Image2-guarantee-vs-thr.png',
-    '{{IMG2D}}': 'Image2-guarantee-vs-thr-dark.png',
-    '{{IMG3}}': 'Image3-guarantees-cmp.png',
-    '{{IMG3D}}': 'Image3-guarantees-cmp-dark.png',
-    '{{IMG-DUST}}': 'Item_Dust_of_Enlightenment.png',
+    '{{IMG1}}': 'images/Image1-reshape-probs.png',
+    '{{IMG1D}}': 'images/Image1-reshape-probs-dark.png',
+    '{{IMG2}}': 'images/Image2-guarantee-vs-thr.png',
+    '{{IMG2D}}': 'images/Image2-guarantee-vs-thr-dark.png',
+    '{{IMG3}}': 'images/Image3-guarantees-cmp.png',
+    '{{IMG3D}}': 'images/Image3-guarantees-cmp-dark.png',
+    '{{IMG-DUST}}': 'images/Item_Dust_of_Enlightenment.png',
 }
 
 
