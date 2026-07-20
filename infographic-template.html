@@ -315,7 +315,7 @@
     </div> -->
     <!-- <p class="callout">High-value outcomes (4 CRIT / 3 CRIT + 1 ATK%) are unaffected by whether you choose (CRIT, ATK%) or (CRIT, DEF). The (2 CRIT + 2 ATK%) outcome distinguishes the two choices.</p> -->
     <p class="big">
-      The main consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The below table illustrates the problem:  high-value outcomes are unaffected by choosing <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>. The starred outcome distinguishes the two choices, which is only boosted by reshaping on DEF.
+      The main consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The below table<a href="#fineprint">*</a> illustrates the problem:  high-value outcomes are unaffected by choosing <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>. The starred outcome distinguishes the two choices, which is only boosted by reshaping on DEF.
     </p>
       <!-- Therefore, high-value outcomes are unaffected by choosing <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>. The (2 CRIT + 2 ATK%) outcome in the table distinguishes the two choices.</p> -->
   <!-- </section> -->
@@ -392,7 +392,7 @@
     <div class="sec-head"><span class="n">03</span><h2>So what do you pick?</h2></div>
     <!-- <p class="big">It depends on the bar this artifact must clear before you'd keep the -->
     <!-- reshape instead of reverting it. Depending on the formula, the best pairs can change from the top 2 (1/2) to (1/3), or sometimes even (2/3).</p> -->
-    <p class="big">Use the <a href="https://frzyc.github.io/genshin-optimizer/">Genshin Optimizer</a> to optimize your artifact reshaping decisions. The best pairs can vary, sometimes even choosing the 2nd and 3rd best stats.</p>
+    <p class="big">Use the <a href="https://frzyc.github.io/genshin-optimizer/">Genshin Optimizer</a> to optimize your artifact reshaping decisions. The best pairs can vary, sometimes even choosing the 2nd and 3rd best stats. The gap between the best choice vs the obvious pick goes up to 20% in this example<a href="#fineprint">*</a>.</p>
     <div class="verdict">
       <div class="v-card floor">
         <!-- <span class="when">Modest bar — any solid piece is an upgrade</span> -->
@@ -430,12 +430,12 @@
   </section>
 
   <!-- 5: FINE PRINT -->
-  <footer class="fine">
-    <p><strong>Fine print.</strong> Model: 4 upgrade rolls, reshape guarantees ≥2 rolls
+  <footer class="fine" id="fineprint">
+    <p>* <strong>Fine print.</strong> Model: 4 upgrade rolls, reshape guarantees ≥2 rolls
     on the picked pair, keep-or-revert at your bar. Damage uses the standard
     ATK × (1 + CRIT&nbsp;Rate × CRIT&nbsp;DMG) formula for a reasonable build (3,000 ATK,
     80% / 180% crit, 900 base ATK), with the artifact's worth measured as its % damage
-    gain; HP and DEF add nothing. To see the relative value lost by the wrong pick, see the detailed notebook below.</p>
-    <p>Probabilities computed exactly (and checked by simulation) in a colab notebook <a href="https://colab.research.google.com/drive/15oL4goVCWunXhfJHWgUXhSnHRWw9CLLo?usp=sharing">here</a></p>
+    gain. Substat values are fixed for simplicity. To see the relative value lost by the wrong pick, see the detailed notebook below.</p>
+    <p>Probabilities computed exactly (and checked by simulation) in a colab notebook <a href="https://colab.research.google.com/drive/15oL4goVCWunXhfJHWgUXhSnHRWw9CLLo?usp=sharing" target="_blank">here</a></p>
   </footer>
 </div>
