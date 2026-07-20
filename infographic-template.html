@@ -1,0 +1,442 @@
+<meta charset="utf-8">
+<title>Reshaping Math - Pick a Dump Stat</title>
+<link rel="icon" href="{{IMG-DUST}}" type="image/png">
+<style>
+  :root {
+    --ground: #f5f6f8;
+    --dot: #d8dce3;
+    --ink: #2a3140;
+    --ink-2: #343c4e;
+    --card-text: #f2f4f8;
+    --card-muted: #aab3c4;
+    --text: #2b3242;
+    --muted: #5c6577;
+    --line: #dce0e7;
+    --gold: #e9b54d;
+    --gold-deep: #c28f2c;
+    --link: #8a6420;
+    --boost: #3e8e4b;
+    --boost-bg: #e3f0e4;
+    --kill: #b8402f;
+    --kill-bg: #f6e4e0;
+    --atk: #4a6fb5;
+    --junk: #9aa3b2;
+    --plate: #ffffff;
+    --img-light: block;
+    --img-dark: none;
+    --display: 'ui-rounded', 'Hiragino Maru Gothic ProN', 'Arial Rounded MT Bold', 'Nunito', 'Trebuchet MS', sans-serif;
+    --body: 'Seravek', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #1e222b;
+      --dot: #2e3440;
+      --text: #e7eaf1;
+      --muted: #9aa3b5;
+      --line: #333a48;
+      --boost-bg: #24382a;
+      --kill-bg: #3d2721;
+      --ink: #272e3c;
+      --ink-2: #313949;
+      --link: var(--gold);
+      --img-light: none;
+      --img-dark: block;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #f5f6f8; --dot: #d8dce3; --text: #2b3242; --muted: #5c6577;
+    --line: #dce0e7; --boost-bg: #e3f0e4; --kill-bg: #f6e4e0;
+    --ink: #2a3140; --ink-2: #343c4e; --link: #8a6420;
+    --img-light: block; --img-dark: none;
+  }
+  :root[data-theme="dark"] {
+    --ground: #1e222b; --dot: #2e3440; --text: #e7eaf1; --muted: #9aa3b5;
+    --line: #333a48; --boost-bg: #24382a; --kill-bg: #3d2721;
+    --ink: #272e3c; --ink-2: #313949; --link: var(--gold);
+    --img-light: none; --img-dark: block;
+  }
+
+  body {
+    background-color: var(--ground);
+    background-image: radial-gradient(var(--dot) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 20px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+  h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  a, a:visited { color: var(--link); text-decoration-color: currentColor; text-underline-offset: 2px; }
+  .hero a, .hero a:visited, .v-card a, .v-card a:visited { color: var(--gold); }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  /* ---- hero: styled like the in-game artifact panel ---- */
+  .hero {
+    background: var(--ink);
+    color: var(--card-text);
+    border-radius: 18px;
+    padding: 34px 34px 30px;
+    box-shadow: 0 10px 30px rgba(30, 36, 50, .25);
+  }
+  .eyebrow {
+    font-family: var(--display);
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .hero h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); line-height: 1.15; }
+  .hero .sub { color: var(--card-muted); margin-top: 14px; max-width: 34em; }
+  .hero-stats {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  .stat-row {
+    background: var(--ink-2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    align-items: center;
+    column-gap: 10px;
+    font-family: var(--display);
+    font-size: .95rem;
+  }
+  .stat-row .name { white-space: nowrap; }
+  .stat-row .star {
+    grid-row: 1 / 3;
+    width: 22px; height: 22px; flex: none;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #4a3306;
+    display: grid; place-items: center;
+    font-size: .8rem;
+  }
+  .stat-row .star.off { background: transparent; border: 1.5px dashed #55607a; color: transparent; }
+  .stat-row .tag {
+    grid-column: 2;
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--card-muted);
+  }
+  .stat-row.picked .tag { color: var(--gold); }
+
+  /* ---- sections ---- */
+  .section { display: flex; flex-direction: column; gap: 16px; }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; }
+  .sec-head .n {
+    font-family: var(--mono);
+    font-size: .85rem;
+    color: var(--gold-deep);
+    flex: none;
+  }
+  .sec-head h2 { font-size: 1.35rem; }
+  .section > p { max-width: 40em; }
+  .section .big { font-size: 1.05rem; }
+  .callout {
+    border-left: 3px solid var(--gold);
+    padding: 2px 0 2px 16px;
+    max-width: 38em;
+    font-family: var(--display);
+    font-size: 1.05rem;
+  }
+
+  /* ---- figures: transparent PNGs in light/dark variants, swapped with
+     the theme so they sit directly on the dotted ground ---- */
+  figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .plate { overflow-x: auto; }
+  .plate img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  .plate img.theme-light { display: var(--img-light); }
+  .plate img.theme-dark { display: var(--img-dark); }
+  figcaption { color: var(--muted); font-size: .88rem; max-width: 44em; }
+
+  /* ---- the luck ledger (section 2) ---- */
+  .ledger { display: flex; flex-direction: column; gap: 8px; }
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 14px;
+    align-items: center;
+    background: var(--plate);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+  :root[data-theme="dark"] .ledger-row { background: var(--ink); border-color: var(--ink-2); }
+  @media (prefers-color-scheme: dark) {
+    .ledger-row { background: var(--ink); border-color: var(--ink-2); }
+  }
+  :root[data-theme="light"] .ledger-row { background: var(--plate); border-color: var(--line); }
+  .ledger-row .hits { font-family: var(--display); font-size: .95rem; }
+  .ledger-row .fate { font-size: .95rem; }
+  .chip {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: .78rem;
+    padding: 2px 10px;
+    border-radius: 99px;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .chip.dead { background: var(--kill-bg); color: var(--kill); }
+  .chip.up { background: var(--boost-bg); color: var(--boost); }
+  .chip.same { background: var(--line); color: var(--muted); }
+
+  /* ---- outcome table (section 3) ---- */
+  .nowrap { white-space: nowrap; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--plate); }
+  :root[data-theme="dark"] .tablewrap { background: var(--ink); border-color: var(--ink-2); }
+  @media (prefers-color-scheme: dark) { .tablewrap { background: var(--ink); border-color: var(--ink-2); } }
+  :root[data-theme="light"] .tablewrap { background: var(--plate); border-color: var(--line); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; }
+  th, td { padding: 12px 14px; text-align: right; font-size: .92rem; }
+  th { font-family: var(--display); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  td:first-child, th:first-child { text-align: left; }
+  tbody tr + tr td { border-top: 1px solid var(--line); }
+  td .num { font-size: .95rem; }
+  .pips { display: inline-flex; gap: 3px; margin-right: 9px; vertical-align: -2px; }
+  .pip { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+  .pip.crit { background: var(--gold); }
+  .pip.atkp { background: var(--atk); }
+  .pip.junk { background: var(--junk); }
+  /* diagonal-split circle: one icon per reshape pair, gold half = CRIT Rate */
+  .duo {
+    width: 13px; height: 13px; border-radius: 50%;
+    display: inline-block; vertical-align: -1px; margin-right: 6px;
+  }
+  .duo.crit-atk { background: linear-gradient(135deg, var(--gold) 50%, var(--atk) 50%); }
+  .duo.crit-dump { background: linear-gradient(135deg, var(--gold) 50%, var(--junk) 50%); }
+  .cell-up { color: var(--boost); font-weight: 700; }
+  .cell-dead { color: var(--kill); font-weight: 700; }
+  .note { font-size: .8rem; color: var(--muted); font-weight: 400; display: block; }
+  .rowlabel { font-family: var(--display); white-space: nowrap; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: .84rem; align-items: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* ---- verdict cards (section 4) ---- */
+  .verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .v-card {
+    border-radius: 16px;
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .v-card.floor { background: var(--ink); color: var(--card-text); }
+  .v-card.jackpot { background: var(--ink); color: var(--card-text); border: 2px solid var(--gold); }
+  .v-card .when {
+    font-family: var(--display);
+    font-size: .74rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--card-muted);
+  }
+  .v-card.jackpot .when { color: var(--gold); }
+  .v-card h3 { font-family: var(--display); margin: 0; font-size: 1.2rem; }
+  .v-card p { color: var(--card-muted); font-size: .93rem; }
+  .v-card .pick { font-family: var(--display); font-size: 1rem; color: var(--card-text); }
+  .v-card .pick .star { color: var(--gold); }
+
+  /* ---- footer ---- */
+  .fine { color: var(--muted); font-size: .85rem; max-width: 46em; border-top: 1px solid var(--line); padding-top: 18px; }
+  .fine p + p { margin-top: 8px; }
+
+  @media (max-width: 540px) {
+    .hero { padding: 26px 22px; }
+    .ledger-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="eyebrow">
+      <img src="{{IMG-DUST}}" height="30" style="vertical-align: middle; margin-right: 8px;" alt="">
+      Genshin artifact reshape math
+    </p>
+    <h1>Artifact reshaping & dump stats.</h1>
+    <p class="sub">Artifact reshaping lets you guarantee 2 substat rolls. The unintuitive part:
+    if you only keep well-rolled pieces, spending one of those picks on a stat you
+    <em>don't want</em> can yield better results.</p>
+    <p class="sub">Use the <a href="https://frzyc.github.io/genshin-optimizer/">Genshin Optimizer</a> to optimize your artifact reshaping decisions.</p>
+    <div class="hero-stats" aria-label="Example reshape selection">
+      <div class="stat-row picked"><span class="star">✦</span> <span class="name">CRIT Rate</span> <span class="tag">picked</span></div>
+      <div class="stat-row"><span class="star off">✦</span> <span class="name">ATK%</span> <span class="tag">skipped!?</span></div>
+      <div class="stat-row"><span class="star off">✦</span> <span class="name">HP</span> <span class="tag"></span></div>
+      <div class="stat-row picked"><span class="star">✦</span> <span class="name">DEF</span> <span class="tag">picked</span></div>
+    </div>
+  </header>
+
+  <!-- 1: THE PROMISE -->
+  <section class="section">
+    <div class="sec-head"><span class="n">01</span><h2>Reshape guarantees</h2></div>
+    <p class="big">Each upgrade roll lands on one of the artifact's 4 substats at random. Reshaping lets you pick 2 substats, and the game promises
+    <strong>at least 2 rolls will land on your picks.</strong> The game fulfills that promise by intervening only when the remaining rolls are your last chance to hit the promise, which has strong implications on the resulting statistics.</p>
+    <figure>
+      <div class="plate">
+        <img class="theme-light" src="{{IMG1}}" alt="Tree diagram of the last two upgrade rolls, picking CRIT Rate + ATK%. Cards show gold pips for rolls on your picks and gray pips for rolls elsewhere. Branches that would end with fewer than 2 picked rolls are impossible (0%); gold forced arrows redirect their chance, so finishing with exactly 2 picked rolls jumps from 37.5% to 68.75%, while 3- and 4-pick finishes are unchanged.">
+        <img class="theme-dark" src="{{IMG1D}}" alt="">
+      </div>
+      <figcaption>Probability tree of guaranteeing CRIT&nbsp;Rate + ATK%. Branches that would break the promise die (0%) and the gold <em>forced</em> arrows hand their chance to finishing with exactly 2 picked rolls (37.5% → 68.75%) while everything above 2 is untouched.</figcaption>
+    </figure>
+  <!-- </section> -->
+
+  <!-- 2: WHERE THE LUCK GOES -->
+  <section class="section">
+    <div class="sec-head"><span class="n">02</span><h2>Consequence of reshape guarantees</h2></div>
+    <!-- <div class="ledger">
+      <div class="ledger-row">
+        <span class="hits">0 or 1 picked rolls</span>
+        <span class="fate"><span class="chip dead">impossible</span> These outcomes break the promise, so they can no longer happen.</span>
+      </div>
+      <div class="ledger-row">
+        <span class="hits">Exactly 2 picked rolls</span>
+        <span class="fate"><span class="chip up">boosted</span> All the freed-up chance lands here, and only here.</span>
+      </div>
+      <div class="ledger-row">
+        <span class="hits">3 or 4 picked rolls</span>
+        <span class="fate"><span class="chip same">unchanged</span> Already beat the promise on their own — no help given.</span>
+      </div>
+    </div> -->
+    <!-- <p class="callout">High-value outcomes (4 CRIT / 3 CRIT + 1 ATK%) are unaffected by whether you choose (CRIT, ATK%) or (CRIT, DEF). The (2 CRIT + 2 ATK%) outcome distinguishes the two choices.</p> -->
+    <p class="big">
+      The main consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The below table illustrates the problem:  high-value outcomes are unaffected by choosing <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>. The starred outcome distinguishes the two choices, which is only boosted by reshaping on DEF.
+    </p>
+      <!-- Therefore, high-value outcomes are unaffected by choosing <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>. The (2 CRIT + 2 ATK%) outcome in the table distinguishes the two choices.</p> -->
+  <!-- </section> -->
+
+  <!-- 3: THE TRICK -->
+  <!-- <section class="section"> -->
+    <!-- <div class="sec-head"><span class="n">03</span><h2>The trick</h2></div> -->
+    <!-- <p class="big">Say your good stats are CRIT&nbsp;Rate and ATK%, and DEF is junk.
+    The very best roll — 4&nbsp;×&nbsp;CRIT — is equally likely whatever you pick.
+    Where picks actually differ is the next roll down:
+    <strong>2&nbsp;CRIT + 2&nbsp;ATK%</strong>.</p> -->
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Outcomes (top 5, sorted)</th>
+            <th>No reshape</th>
+            <th><span class="duo crit-atk"></span>CRIT & ATK%</th>
+            <th><span class="duo crit-dump"></span>CRIT & DEF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip crit"></span><span class="pip crit"></span></span><span class="rowlabel">4 CRIT</span></td>
+            <td><span class="num">0.39%</span></td>
+            <td><span class="num">0.39%</span></td>
+            <td><span class="num">0.39%</span></td>
+          </tr>
+          <tr>
+            <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip crit"></span><span class="pip atkp"></span></span><span class="rowlabel">3 CRIT + 1 ATK%</span></td>
+            <td><span class="num">1.56%</span></td>
+            <td><span class="num">1.56%</span></td>
+            <td><span class="num">1.56%</span></td>
+          </tr>
+          <tr>
+            <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip atkp"></span><span class="pip atkp"></span></span><span class="rowlabel">2 CRIT + 2 ATK% ★</span></td>
+            <td><span class="num">2.34%</span></td>
+            <td><span class="num">2.34%</span></td>
+            <td class="cell-up"><span class="num">4.30%</span><span class="note">boosted</span></td>
+          </tr>
+          <tr>
+            <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip crit"></span><span class="pip junk"></span></span><span class="rowlabel">3 CRIT + 1 junk</span></td>
+            <td><span class="num">3.12%</span></td>
+            <td><span class="num">3.12%</span></td>
+            <td><span class="num">3.12%</span></td>
+          </tr>
+          <tr>
+            <td><span class="pips"><span class="pip crit"></span><span class="pip atkp"></span><span class="pip atkp"></span><span class="pip atkp"></span></span><span class="rowlabel">1 CRIT + 3 ATK%</span></td>
+            <td><span class="num">2.34%</span></td>
+            <td><span class="num">2.34%</span></td>
+            <td class="cell-dead"><span class="num">0%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><span class="pip crit"></span> CRIT Rate</span>
+      <span><span class="pip atkp"></span> ATK%</span>
+      <span><span class="pip junk"></span> dump (HP / DEF)</span>
+      <span>★ = the best roll your pick can change &nbsp;·&nbsp; 5 of 35 possible outcomes shown</span>
+    </div>
+    <p class="callout">With a higher bar for accepting the reshape outcome, the boost to the (2 CRIT + 2 ATK%) bucket dominates the comparison between the two choices.</p>
+
+    <!-- <p>Top rolls like 4&nbsp;×&nbsp;CRIT are identical under every pick — no choice touches
+    them. The best roll a pick <em>can</em> change is 2&nbsp;CRIT + 2&nbsp;ATK%.
+    <strong>Pick both good stats</strong> and it already has 4 picked rolls — it gets
+    nothing; your boost lands on so-so "2 good + 2 dump" rolls instead.
+    <strong>Pick CRIT + DEF</strong> and it has exactly 2 picked rolls (2 CRIT, 0 DEF) —
+    it nearly doubles. The price: rolls like 4×&nbsp;ATK% become impossible.</p> -->
+  </section>
+
+  <!-- 4: WHICH DO YOU PICK -->
+  <section class="section">
+    <div class="sec-head"><span class="n">03</span><h2>So what do you pick?</h2></div>
+    <!-- <p class="big">It depends on the bar this artifact must clear before you'd keep the -->
+    <!-- reshape instead of reverting it. Depending on the formula, the best pairs can change from the top 2 (1/2) to (1/3), or sometimes even (2/3).</p> -->
+    <p class="big">Use the <a href="https://frzyc.github.io/genshin-optimizer/">Genshin Optimizer</a> to optimize your artifact reshaping decisions. The best pairs can vary, sometimes even choosing the 2nd and 3rd best stats.</p>
+    <div class="verdict">
+      <div class="v-card floor">
+        <!-- <span class="when">Modest bar — any solid piece is an upgrade</span> -->
+        <h3>Raise the floor</h3>
+        <p class="pick"><span class="star">✦</span> CRIT Rate &nbsp;+&nbsp; <span class="star">✦</span> ATK%</p>
+        <p>Best average outcome — the guarantee props up your
+        worst rolls.</p>
+      </div>
+      <div class="v-card jackpot">
+        <!-- <span class="when">Sky-high bar — only a near-perfect piece matters</span> -->
+        <h3>Hope to highroll</h3>
+        <p class="pick"><span class="star">✦</span> CRIT Rate &nbsp;+&nbsp; <span class="star">✦</span> DEF</p>
+        <p>Slightly boosts the top end, while the lower floor gets reverted anyway.</p>
+      </div>
+    </div>
+    <figure>
+      <div class="plate">
+        <img class="theme-light" src="{{IMG2}}" alt="Grouped bar chart of the chance of each damage gain under three choices: no reshape, picking CRIT Rate + ATK%, and picking CRIT Rate + DEF. Picking CRIT+ATK% piles chance onto middling gains; picking CRIT+DEF nearly doubles the top gain a pick can change. A strip above reads off the best pick: both good stats below a bar of 4.4% damage gain, one good stat plus a dump stat above it.">
+        <img class="theme-dark" src="{{IMG2D}}" alt="">
+      </div>
+      <figcaption>What you end up with, under each choice. Picking CRIT&nbsp;+&nbsp;ATK%
+      piles its boost onto the middling gains; picking CRIT&nbsp;+&nbsp;DEF slightly boosts
+      the top end. The top strip reads off the best pick: (bar below ≈4.4% damage
+      gain) — both good stats; above the bar — one good stat + dump.</figcaption>
+    </figure>
+    <!-- <figure>
+      <div class="plate">
+        <img class="theme-light" src="{{IMG3}}" alt="Line chart scoring each kind of pick against the best possible choice as the keep-it bar rises. The obvious CRIT+ATK% pick is best until a bar of about 4.4% damage gain, then falls behind the CRIT + dump pick, bottoming out at 79% of the best choice.">
+        <img class="theme-dark" src="{{IMG3D}}" alt="">
+      </div>
+      <figcaption>Every kind of pick, scored against the best possible choice. The obvious
+      pick is unbeaten until your bar passes ≈4.4% — beyond that it trails the dump-stat
+      pick, at worst delivering only 79% of what the best choice would.</figcaption>
+    </figure> -->
+  </section>
+
+  <!-- 5: FINE PRINT -->
+  <footer class="fine">
+    <p><strong>Fine print.</strong> Model: 4 upgrade rolls, reshape guarantees ≥2 rolls
+    on the picked pair, keep-or-revert at your bar. Damage uses the standard
+    ATK × (1 + CRIT&nbsp;Rate × CRIT&nbsp;DMG) formula for a reasonable build (3,000 ATK,
+    80% / 180% crit, 900 base ATK), with the artifact's worth measured as its % damage
+    gain; HP and DEF add nothing. To see the relative value lost by the wrong pick, see the detailed notebook below.</p>
+    <p>Probabilities computed exactly (and checked by simulation) in a colab notebook <a href="https://colab.research.google.com/drive/15oL4goVCWunXhfJHWgUXhSnHRWw9CLLo?usp=sharing">here</a></p>
+  </footer>
+
+</div>
