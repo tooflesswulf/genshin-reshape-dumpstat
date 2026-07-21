@@ -43,12 +43,12 @@ def render(theme, report=False):
         ax.bar(slots + (k - 1) * width * 1.08, dist, width=width,
                label=name, color=color, linewidth=0, zorder=3)
 
-    ax.set_xticks(slots, [f'{v * 100:.1f}%' for v in uvals], fontsize=9)
+    ax.set_xticks(slots, [f'{v * 100:.1f}%' for v in uvals], fontsize=10.8)
     ax.set_xlabel('damage gain from the finished artifact  '
-                  '(values in increasing order)', fontsize=11)
-    ax.set_ylabel('chance', fontsize=11)
+                  '(values in increasing order)', fontsize=13.2)
+    ax.set_ylabel('chance', fontsize=13.2)
     ax.yaxis.set_major_formatter(lambda y, _: f'{y:.0%}')
-    ax.legend(loc='upper right', frameon=False, fontsize=10.5)
+    ax.legend(loc='upper right', frameon=False, fontsize=12.6)
 
     # Callouts for the two outcomes the story hinges on, located by their
     # roll counts so they track the damage formula.
@@ -57,7 +57,7 @@ def render(theme, report=False):
         x = slot + (k - 1) * width * 1.08
         y = dists[k][slot]
         ax.annotate(text, xy=(x, y), xytext=(x + dx, y + dy),
-                    fontsize=9.5, color=rc.MUTED, ha=ha,
+                    fontsize=11.4, color=rc.MUTED, ha=ha,
                     arrowprops=dict(arrowstyle='-', color=rc.MUTED,
                                     linewidth=0.8))
     callout([1, 1, 2, 0], 1, 'so-so artifacts:\nCRIT+ATK% boosts these',
@@ -99,17 +99,17 @@ def render(theme, report=False):
             facecolor=color, alpha=0.22, edgecolor=color, linewidth=0.8,
             clip_on=False))
         if x1 - x0 > 1.2:
-            ax.text((x0 + x1) / 2, (y0 + y1) / 2, label, fontsize=9.5,
+            ax.text((x0 + x1) / 2, (y0 + y1) / 2, label, fontsize=11.4,
                     ha='center', va='center', color=rc.TEXT,
                     transform=ax.get_xaxis_transform())
         if i:
             ax.axvline(x0, color=rc.MUTED, linewidth=0.9, linestyle=':',
                        zorder=2)
-            ax.text(x0, y1 + 0.015, f'{lo * 100:.1f}%', fontsize=8.5,
+            ax.text(x0, y1 + 0.015, f'{lo * 100:.1f}%', fontsize=10.2,
                     ha='center', va='bottom', color=rc.MUTED,
                     transform=ax.get_xaxis_transform())
-    ax.text(-0.5, y1 + 0.055, 'best pick, by the damage gain you need '
-            'this artifact to beat:', fontsize=11,
+    ax.text(-0.5, y1 + 0.075, 'best pick, by the damage gain you need '
+            'this artifact to beat:', fontsize=13.2,
             transform=ax.get_xaxis_transform())
 
     rc.save(fig, OUT, theme)

@@ -157,7 +157,7 @@ def style_axes(ax):
         ax.spines[side].set_visible(False)
     for side in ('left', 'bottom'):
         ax.spines[side].set_color(LINE)
-    ax.tick_params(colors=MUTED, labelsize=10)
+    ax.tick_params(colors=MUTED, labelsize=12)
     ax.yaxis.grid(True, color=LINE, linewidth=0.7)
     ax.set_axisbelow(True)
 

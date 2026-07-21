@@ -62,10 +62,10 @@ def render(theme, report=False):
     ax.axvline(cross, color=rc.MUTED, linewidth=1, linestyle=':',
                clip_on=False)
     ax.text(cross - 0.015 * xr, 1.02, 'easygoing: obvious pick wins',
-            ha='right', va='bottom', fontsize=10, color=rc.TEXT,
+            ha='right', va='bottom', fontsize=12, color=rc.TEXT,
             transform=ax.get_xaxis_transform())
     ax.text(cross + 0.015 * xr, 1.02, 'picky: dump pick wins',
-            ha='left', va='bottom', fontsize=10, color=rc.TEXT,
+            ha='left', va='bottom', fontsize=12, color=rc.TEXT,
             transform=ax.get_xaxis_transform())
 
     # The worst moment for the obvious pick.
@@ -75,7 +75,7 @@ def render(theme, report=False):
                 f'{frac01[i]:.0%} of the best choice',
                 xy=(thrs[i], frac01[i]),
                 xytext=(thrs[i] - 0.26 * xr, frac01[i] + 0.14),
-                fontsize=9.5, color=rc.MUTED,
+                fontsize=11.4, color=rc.MUTED,
                 arrowprops=dict(arrowstyle='-', color=rc.MUTED,
                                 linewidth=0.8))
 
@@ -84,12 +84,12 @@ def render(theme, report=False):
     ax.xaxis.set_major_formatter(lambda x, _: f'{x * 100:g}%')
     ax.yaxis.set_major_formatter(lambda y, _: f'{y:.0%}')
     ax.set_xlabel('the damage gain this artifact must beat '
-                  'for you to keep it  (easygoing → picky)', fontsize=11)
-    ax.set_ylabel('payoff, as % of the best pick', fontsize=11)
+                  'for you to keep it  (easygoing → picky)', fontsize=13.2)
+    ax.set_ylabel('payoff, as % of the best pick', fontsize=13.2)
     ax.set_title('How each pick holds up as your standards rise',
-                 fontsize=13, pad=34)
+                 fontsize=15.6, pad=34)
     ax.legend(loc='lower left', frameon=True, edgecolor='none',
-              facecolor=rc.PAGE_BG, framealpha=0.92, fontsize=10.5)
+              facecolor=rc.PAGE_BG, framealpha=0.92, fontsize=12.6)
 
     rc.save(fig, OUT, theme)
     plt.close(fig)

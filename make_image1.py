@@ -62,11 +62,11 @@ def draw_card(ax, x, y, picked, junk, prob, dead=False, note=None,
     else:
         label = f'{prob:g}%'
         color = rc.GOLD if note_color == rc.GREEN else rc.CARD_TEXT
-    ax.text(x, y + 0.25, label, ha='center', va='center', fontsize=11.5,
+    ax.text(x, y + 0.25, label, ha='center', va='center', fontsize=13.8,
             fontweight='bold', color=color, zorder=6)
     if note:
         ax.text(x, y - CARD_H / 2 - 0.42, note, ha='center', va='center',
-                fontsize=8.8, color=note_color or rc.MUTED, zorder=6)
+                fontsize=10.6, color=note_color or rc.MUTED, zorder=6)
 
 
 def draw_edge(ax, x1, y1, x2, y2, label, kind='normal'):
@@ -83,7 +83,7 @@ def draw_edge(ax, x1, y1, x2, y2, label, kind='normal'):
                                 mutation_scale=14))
     mx, my = (start[0] + end[0]) / 2, (start[1] + end[1]) / 2
     weight = 'bold' if kind == 'forced' else 'normal'
-    ax.text(mx, my + 0.16, label, ha='center', va='bottom', fontsize=9,
+    ax.text(mx, my + 0.16, label, ha='center', va='bottom', fontsize=12,
             color=color, fontweight=weight, zorder=6,
             bbox=dict(facecolor=rc.PAGE_BG, edgecolor='none', pad=1.2))
 
@@ -100,7 +100,7 @@ def render(theme):
     c0, c1, c2 = 2.4, 8.45, 14.5
     for x, head in [(c0, 'halfway (2 rolls in)'), (c1, 'after roll 3'),
                     (c2, 'after all 4 rolls')]:
-        ax.text(x, 10.0, head, ha='center', fontsize=11.5,
+        ax.text(x, 10.0, head, ha='center', fontsize=16,
                 fontweight='bold', color=rc.TEXT)
 
     # (picked, junk) -> (x, y, %): exact probabilities with the promise
@@ -112,9 +112,9 @@ def render(theme):
     N2 = {(4, 0): (c2, 8.9, 6.25), (3, 1): (c2, 6.6, 25),
           (2, 2): (c2, 4.3, 68.75), (1, 3): (c2, 2.0, 0)}
 
-    notes = {(2, 2): ('would be 37.5% without the promise', rc.GREEN),
-             (4, 0): ('unchanged', rc.MUTED),
-             (3, 1): ('unchanged', rc.MUTED)}
+    notes = {(2, 2): ('reshape triggered\nwould be 37.5% without the promise', rc.GREEN),
+             (4, 0): ('0 triggers\n(unchanged)', rc.MUTED),
+             (3, 1): ('0 triggers\n(unchanged)', rc.MUTED)}
     for col in (N0, N1, N2):
         for (p, j), (x, y, prob) in col.items():
             note, ncolor = notes.get((p, j), (None, None))
@@ -156,7 +156,7 @@ def render(theme):
                                 edgecolor=rc.PIP_EMPTY, linewidth=1.1,
                                 linestyle=(0, (2, 2)), zorder=5))
         t = ax.text(lx + 0.35, ly, text, ha='left', va='center',
-                    fontsize=9.3, color=rc.MUTED, zorder=5)
+                    fontsize=13, color=rc.MUTED, zorder=5)
         fig.canvas.draw()
         bb = t.get_window_extent().transformed(ax.transData.inverted())
         lx = bb.x1 + 0.75
