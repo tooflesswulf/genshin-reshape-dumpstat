@@ -320,7 +320,7 @@
   <!-- 1: THE PROMISE -->
   <section class="section">
     <div class="sec-head"><span class="n">01</span><h2>Reshape guarantees</h2></div>
-    <p class="big">Each upgrade roll lands on one of the artifact's 4 substats at random. Reshaping lets you pick 2 substats, and the game promises at least 2 rolls will land on your picks. The game fulfills that promise by landing the last few rolls on your picks if the first few go poorly, like a pity system. However, this also means that <strong>only outcomes with exactly 2 picked rolls are boosted</strong>, and the rest are unchanged.
+    <p class="big">Each upgrade roll lands on one of the artifact's 4 substats at random. Reshaping lets you pick 2 (resp. 3 or 4)<a href="#fineprint">*</a> substats, and the game promises at least 2 rolls will land on your picks. The game fulfills that promise by landing the last few rolls on your picks if the first few go poorly, like a pity system. However, this also means that <strong>only outcomes with exactly 2 picked rolls are boosted</strong>, and the rest are unchanged.
   </p>
     <figure>
       <div class="plate">
@@ -330,9 +330,46 @@
       <figcaption>Probability tree of guaranteeing CRIT&nbsp;Rate + ATK%. Branches that would break the promise die (0%) and the gold <em>forced</em> arrows hand their chance to finishing with exactly 2 picked rolls (37.5% → 68.75%) while everything above 2 is untouched.</figcaption>
     </figure>
 
+  <!-- Consequences -->
   <section class="section">
     <div class="sec-head"><span class="n">02</span><h2>Consequence of reshape guarantees</h2></div>
     <p class="big">
+      The main statistical consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The figure below shows the chance of each outcome, sorted in increasing damage<a href="#fineprint">*</a> order.
+      <!-- On the right side of the graph, picking <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span> beats the obvious pick <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> because the two buckets (
+        <span class="nowrap"><span class="pip crit"></span> <span class="pip atkp"></span> <span class="pip atkp"></span> <span class="pip junk"></span></span>
+        &
+        <span class="nowrap"><span class="pip crit"></span> <span class="pip crit"></span> <span class="pip junk"></span> <span class="pip junk"></span></span>
+        ) have exactly 2 rolls between <span class="pip crit"></span> CRIT and <span class="pip junk"></span> DEF, boosting those bins. -->
+    </p>
+
+    <p class="big">
+      While reshaping, the game allows you to revert the outcome if you don't like it. This keep-or-revert threshold manifests in the chart as a vertical line where everything to the left is ignored, since those outcomes would be reverted anyways. So when you're pickier about what you keep, the boosts to (
+        <ruby>
+          <span class="nowrap"><span class="pip crit"></span> <span class="pip atkp"></span> <span class="pip atkp"></span> <span class="pip junk"></span></span>
+          <rp>(</rp><rt>1 CRIT + 1 DEF</rt><rp>)</rp>
+        </ruby>
+        and
+          <span class="nowrap">
+        <ruby>
+            <span class="pip crit"></span> <span class="pip crit"></span> 
+          <rp>(</rp><rt>2 CRIT</rt><rp>)</rp>
+        </ruby>
+          <span class="pip atkp"></span> <span class="pip atkp"></span></span>
+        ) are what cement <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span> as the unintuitive, but optimal choice.
+    </p>
+
+    <figure>
+      <div class="plate">
+        <img class="theme-light" src="{{IMG2}}" alt="Grouped bar chart of the chance of each damage gain under three choices: no reshape, picking CRIT Rate + ATK%, and picking CRIT Rate + DEF. Picking CRIT+ATK% piles chance onto middling gains; picking CRIT+DEF nearly doubles the top gain a pick can change. A strip above reads off the best pick: both good stats below a bar of 4.4% damage gain, one good stat plus a dump stat above it.">
+        <img class="theme-dark" src="{{IMG2D}}" alt="">
+      </div>
+      <figcaption>What you end up with, under each choice. Picking CRIT&nbsp;+&nbsp;ATK%
+      piles its boost onto the middling gains; picking CRIT&nbsp;+&nbsp;DEF slightly boosts
+      the top end. The top strip reads off the best pick: (bar below ≈4.4% damage
+      gain) — both good stats; above the bar — one good stat + dump.</figcaption>
+    </figure>
+
+    <!-- <p class="big">
       The main statistical consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The table below shows the best 5 roll outcomes<a href="#fineprint">*</a> and compares the roll counts for <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>.
       There's no difference in the top 2 outcomes because the roll counts are above 2, but the starred (2 CRIT + 2 ATK%) outcome boosts <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>, tilting the scales its favor.
     </p>
@@ -343,7 +380,6 @@
         <thead>
           <tr>
             <th>Top 5 outcomes, sorted</th>
-            <!-- <th>No reshape (prob.)</th> -->
             <th><span class="duo crit-atk"></span>CRIT & ATK%</th>
             <th><span class="duo crit-dump"></span>CRIT & DEF</th>
           </tr>
@@ -356,19 +392,16 @@
           </tr>
           <tr>
             <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip crit"></span><span class="pip atkp"></span></span><span class="rowlabel">3 CRIT + 1 ATK%</span></td>
-            <!-- <td><span class="num">1.56%</span></td> -->
             <td><span class="num">4</span> <span class="duo crit-atk"></span></td>
             <td><span class="num">3</span> <span class="duo crit-dump"></span></td>
           </tr>
           <tr>
             <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip atkp"></span><span class="pip atkp"></span></span><span class="rowlabel">2 CRIT + 2 ATK% ★</span></td>
-            <!-- <td><span class="num">2.34%</span></td> -->
             <td><span class="num">4</span> <span class="duo crit-atk"></span></td>
             <td class="cell-up"><span class="num">2</span> <span class="duo crit-dump"></span><span class="note">boosted</span></td>
           </tr>
           <tr>
             <td><span class="pips"><span class="pip crit"></span><span class="pip crit"></span><span class="pip crit"></span><span class="pip junk"></span></span><span class="rowlabel">3 CRIT + 1 junk</span></td>
-            <!-- <td><span class="num">3.12%</span></td> -->
             <td><span class="num">3</span> <span class="duo crit-atk"></span></td>
             <td><span class="num">3 or 4</span> <span class="duo crit-dump"></span></td>
           </tr>
@@ -388,14 +421,7 @@
       <span><span class="pip junk"></span> dump (HP / DEF)</span>
       <span>★ = the best roll your pick can change &nbsp;·&nbsp; 5 of 35 possible outcomes shown</span>
     </div>
-    <p class="callout">With a higher bar for accepting the reshape outcome, e.g. when we're only looking at the top few outcomes, the boost to the (2 CRIT + 2 ATK%) bucket dominates the comparison between the two choices.</p>
-
-    <!-- <p>Top rolls like 4&nbsp;×&nbsp;CRIT are identical under every pick — no choice touches
-    them. The best roll a pick <em>can</em> change is 2&nbsp;CRIT + 2&nbsp;ATK%.
-    <strong>Pick both good stats</strong> and it already has 4 picked rolls — it gets
-    nothing; your boost lands on so-so "2 good + 2 dump" rolls instead.
-    <strong>Pick CRIT + DEF</strong> and it has exactly 2 picked rolls (2 CRIT, 0 DEF) —
-    it nearly doubles. The price: rolls like 4×&nbsp;ATK% become impossible.</p> -->
+    <p class="callout">With a higher bar for accepting the reshape outcome, e.g. when we're only looking at the top few outcomes, the boost to the (2 CRIT + 2 ATK%) bucket dominates the comparison between the two choices.</p> -->
   </section>
 
   <!-- 4: WHICH DO YOU PICK -->
@@ -403,7 +429,7 @@
     <div class="sec-head"><span class="n">03</span><h2>So what do you pick?</h2></div>
     <!-- <p class="big">It depends on the bar this artifact must clear before you'd keep the -->
     <!-- reshape instead of reverting it. Depending on the formula, the best pairs can change from the top 2 (1/2) to (1/3), or sometimes even (2/3).</p> -->
-    <p class="big">Use the <a href="https://frzyc.github.io/genshin-optimizer/" target="_blank">Genshin Optimizer</a> to optimize your artifact reshaping decisions. The best pairs can vary, and sometimes you don't even pick the best stat. The gap between the best choice vs the obvious pick goes up to 20% in this example<a href="#fineprint">*</a>.</p>
+    <p class="big">Use the <a href="https://frzyc.github.io/genshin-optimizer/" target="_blank">Genshin Optimizer</a> to optimize your artifact reshaping decisions. The best pairs can vary, and sometimes you don't even pick the best stat. Reshaping with 3 or 4 guarantees also exhibits the same unintuitive behavior. In this example, the gap between the best choice vs the obvious pick can be as large as 20%. </p>
     <div class="verdict">
       <div class="v-card floor">
         <!-- <span class="when">Modest bar — any solid piece is an upgrade</span> -->
@@ -419,25 +445,6 @@
         <p>Slightly boosts the top end, while the lower floor gets reverted anyway.</p>
       </div>
     </div>
-    <figure>
-      <div class="plate">
-        <img class="theme-light" src="{{IMG2}}" alt="Grouped bar chart of the chance of each damage gain under three choices: no reshape, picking CRIT Rate + ATK%, and picking CRIT Rate + DEF. Picking CRIT+ATK% piles chance onto middling gains; picking CRIT+DEF nearly doubles the top gain a pick can change. A strip above reads off the best pick: both good stats below a bar of 4.4% damage gain, one good stat plus a dump stat above it.">
-        <img class="theme-dark" src="{{IMG2D}}" alt="">
-      </div>
-      <figcaption>What you end up with, under each choice. Picking CRIT&nbsp;+&nbsp;ATK%
-      piles its boost onto the middling gains; picking CRIT&nbsp;+&nbsp;DEF slightly boosts
-      the top end. The top strip reads off the best pick: (bar below ≈4.4% damage
-      gain) — both good stats; above the bar — one good stat + dump.</figcaption>
-    </figure>
-    <!-- <figure>
-      <div class="plate">
-        <img class="theme-light" src="{{IMG3}}" alt="Line chart scoring each kind of pick against the best possible choice as the keep-it bar rises. The obvious CRIT+ATK% pick is best until a bar of about 4.4% damage gain, then falls behind the CRIT + dump pick, bottoming out at 79% of the best choice.">
-        <img class="theme-dark" src="{{IMG3D}}" alt="">
-      </div>
-      <figcaption>Every kind of pick, scored against the best possible choice. The obvious
-      pick is unbeaten until your bar passes ≈4.4% — beyond that it trails the dump-stat
-      pick, at worst delivering only 79% of what the best choice would.</figcaption>
-    </figure> -->
   </section>
 
   <!-- 5: FINE PRINT -->
