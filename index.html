@@ -320,7 +320,7 @@
   <!-- 1: THE PROMISE -->
   <section class="section">
     <div class="sec-head"><span class="n">01</span><h2>Reshape guarantees</h2></div>
-    <p class="big">Each upgrade roll lands on one of the artifact's 4 substats at random. Reshaping lets you pick 2 (resp. 3 or 4)<a href="#fineprint">*</a> substats, and the game promises at least 2 rolls will land on your picks. The game fulfills that promise by landing the last few rolls on your picks if the first few go poorly, like a pity system. However, this also means that <strong>only outcomes with exactly 2 picked rolls are boosted</strong>, and the rest are unchanged.
+    <p class="big">Each upgrade roll lands on one of the artifact's 4 substats at random. Reshaping lets you pick 2 (resp. 3 or 4)<a href="#footer">&#8224;</a> substats, and the game promises at least 2 rolls will land on your picks. The game fulfills that promise by landing the last few rolls on your picks if the first few go poorly, like a pity system. However, this also means that <strong>only outcomes with exactly 2 picked rolls are boosted</strong>, and the rest are unchanged.
   </p>
     <figure>
       <div class="plate">
@@ -334,7 +334,7 @@
   <section class="section">
     <div class="sec-head"><span class="n">02</span><h2>Consequence of reshape guarantees</h2></div>
     <p class="big">
-      The main statistical consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The figure below shows the chance of each outcome, sorted in increasing damage<a href="#fineprint">*</a> order.
+      The main statistical consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The figure below shows the chance of each outcome, sorted in increasing damage<a href="#footer">*</a> order.
       <!-- On the right side of the graph, picking <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span> beats the obvious pick <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> because the two buckets (
         <span class="nowrap"><span class="pip crit"></span> <span class="pip atkp"></span> <span class="pip atkp"></span> <span class="pip junk"></span></span>
         &
@@ -370,7 +370,7 @@
     </figure>
 
     <!-- <p class="big">
-      The main statistical consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The table below shows the best 5 roll outcomes<a href="#fineprint">*</a> and compares the roll counts for <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>.
+      The main statistical consequence is that only outcomes with <b>exactly 2 picked rolls</b> are boosted. The table below shows the best 5 roll outcomes<a href="#footer">*</a> and compares the roll counts for <span class="nowrap"><span class="duo crit-atk"></span>(CRIT & ATK%)</span> vs <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>.
       There's no difference in the top 2 outcomes because the roll counts are above 2, but the starred (2 CRIT + 2 ATK%) outcome boosts <span class="nowrap"><span class="duo crit-dump"></span>(CRIT & DEF)</span>, tilting the scales its favor.
     </p>
 
@@ -448,13 +448,13 @@
   </section>
 
   <!-- 5: FINE PRINT -->
-  <footer class="fine" id="fineprint">
-    <p>* <strong>Fine print.</strong> Model: 4 upgrade rolls, reshape guarantees ≥2 rolls
+  <footer class="fine" id="footer">
+    <p>* Model: 4 upgrade rolls, reshape guarantees ≥2 rolls
     on the picked pair, keep-or-revert at your bar. Damage uses the standard
-    ATK × (1 + CRIT&nbsp;Rate × CRIT&nbsp;DMG) formula for a reasonable build (3,000 ATK,
+    <span class="nowrap">ATK × (1 + CRIT&nbsp;Rate × CRIT&nbsp;DMG)</span> formula for a reasonable build (3,000 ATK,
     80% / 180% crit, 900 base ATK), with the artifact's worth measured as its % damage
     gain. Substat values are fixed for simplicity. To see the relative value lost by the wrong pick, see the detailed notebook below.</p>
-    <p>The above effects are also observed for 3 or 4 guaranteed rolls, but with a higher threshold. 
+    <p>&#8224; The above effects are also observed for 3 or 4 guaranteed rolls, but with a higher threshold. 
       Code is available in a colab notebook <a href="https://colab.research.google.com/drive/15oL4goVCWunXhfJHWgUXhSnHRWw9CLLo?usp=sharing" target="_blank">here</a> for you to explore different formulas, change the total rolls, change the number of guaranteed rolls, or to check the math yourself.
       <!-- Probabilities computed exactly (and checked by simulation) in a colab notebook <a href="https://colab.research.google.com/drive/15oL4goVCWunXhfJHWgUXhSnHRWw9CLLo?usp=sharing" target="_blank">here</a></p> -->
   </footer>
